@@ -1,0 +1,47 @@
+[gd_scene load_steps=10 format=3 uid="uid://4du8kqar8fua"]
+
+[ext_resource type="Shader" path="res://shaders/sphereshader.gdshader" id="1_fxofs"]
+[ext_resource type="Script" path="res://shadermeshscript.gd" id="2_317ib"]
+[ext_resource type="Shader" path="res://shaders/shadermagic.gdshader" id="3_5eyir"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bu14t"]
+render_priority = 0
+shader = ExtResource("1_fxofs")
+
+[sub_resource type="SphereMesh" id="SphereMesh_5add2"]
+lightmap_size_hint = Vector2i(59, 15)
+material = SubResource("ShaderMaterial_bu14t")
+radius = 1.825
+height = 1.776
+radial_segments = 5
+
+[sub_resource type="SphereMesh" id="SphereMesh_nbolq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1aq8p"]
+render_priority = 0
+shader = ExtResource("1_fxofs")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_opus8"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_1aq8p")
+shader = ExtResource("3_5eyir")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_miheh"]
+material = SubResource("ShaderMaterial_opus8")
+subdivide_width = 12
+subdivide_depth = 12
+
+[node name="Scene" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.137946, -0.99044, 0, 0.99044, 0.137946, 0, 0, 0, 1, -1.57303, -1.34438, -5.95953)
+mesh = SubResource("SphereMesh_5add2")
+script = ExtResource("2_317ib")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.52783, 0, 0, 0, 1, 0, 0, 0, 2.91524, 0.128571, 0.15014, 3.45225)
+mesh = SubResource("SphereMesh_nbolq")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.27985, 0.0374111, -3.78253)
+mesh = SubResource("PlaneMesh_miheh")
